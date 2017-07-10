@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import Header from './Header';
 import Tabs from './Tabs';
+import TimeTable from './timetable/TimeTable';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,7 +22,7 @@ class Routine extends React.Component {
       <View style={styles.container}>
         <Header />
         <Tabs />
-        <Text style={styles.text}>Routine.js is successfully loaded</Text>
+        <TimeTable />
       </View>
     );
   }

@@ -20,7 +20,7 @@ class Tabs extends Component {
     super(props);
     this.state = {
       days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      selected: '',
+      selected: 'Mon',
     }
   }
 
@@ -30,15 +30,21 @@ class Tabs extends Component {
     });
   }
 
+  isSelected(day) {
+    if (day === this.state.selected) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     return (
       <View style={styles.container}>
         {this.state.days.map((day, idx) => {
           return (
-            <Tab key={idx} text={day} select={this.onPress.bind(this)} />
+            <Tab key={idx} text={day} select={this.onPress.bind(this)} isSelected={this.isSelected.bind(this)}/>
           )
         })}
-        <Text>{this.state.selected}</Text>
       </View>
     );
   }

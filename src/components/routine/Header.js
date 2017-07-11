@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  TouchableOpacity,
   StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -11,8 +12,20 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
+  button: {
+    borderWidth: 1,
+    borderRadius: 2,
+    height: 25,
+    width: 40,
+    backgroundColor: 'lightsteelblue',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    textAlign: 'center',
+  }
 });
 
 class RoutineHeader extends Component {
@@ -26,8 +39,11 @@ class RoutineHeader extends Component {
 
   componentDidMount() {
     let today = new Date();
+    let months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     this.setState({
-      date: `${today.getDate()} - ${today.getMonth() + 1} - ${today.getFullYear()}`,
+      date: `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()}`,
     });
   }
 
@@ -35,6 +51,9 @@ class RoutineHeader extends Component {
     return (
       <View style={styles.container}>
         <Text>{this.state.pageMark}</Text>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Add</Text>
+        </TouchableOpacity>
         <Text>{this.state.date}</Text>
       </View>
     );

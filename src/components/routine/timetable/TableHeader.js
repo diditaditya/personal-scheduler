@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: 'darkcyan',
+    backgroundColor: 'cyan',
   },
   header: {
     flex: 1,
@@ -37,7 +37,7 @@ const TableHeader = () => {
         <Text style={styles.text}>Description</Text>
       </View>
       <View style={styles.header}>
-        <Text style={styles.text}>Remark</Text>
+        <Text style={styles.text}>Options</Text>
       </View>
     </View>
   );

@@ -7,12 +7,13 @@ import {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'aqua',
+    backgroundColor: 'royalblue',
     flexDirection: 'row',
   },
   title: {
     flex: 1,
     textAlign: 'center',
+    color: 'powderblue',
     paddingTop: 10,
     paddingBottom: 10,
   },

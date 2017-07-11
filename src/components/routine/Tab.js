@@ -20,14 +20,17 @@ class Tab extends Component {
     super(props);
     this.styles = {
       container: {
+        height: 25,
         paddingLeft: 7,
         paddingRight: 7,
         borderWidth: 1,
         borderRadius: 2,
-        backgroundColor: 'skyblue',
+        backgroundColor: 'lightskyblue',
+        justifyContent: 'center',
       },
       text: {
         color: 'black',
+        textAlign: 'center',
       },
     };
   }
@@ -38,9 +41,9 @@ class Tab extends Component {
 
   isSelected() {
     if (this.props.isSelected(this.props.text)) {
-      this.styles.container.backgroundColor = 'blue';
+      this.styles.container.backgroundColor = 'dodgerblue';
     } else {
-      this.styles.container.backgroundColor = 'skyblue';
+      this.styles.container.backgroundColor = 'lightskyblue';
     }
   }
 

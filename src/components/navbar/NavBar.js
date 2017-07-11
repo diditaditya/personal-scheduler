@@ -7,7 +7,7 @@ import {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#facade',
+    backgroundColor: 'aqua',
     flexDirection: 'row',
   },
   title: {

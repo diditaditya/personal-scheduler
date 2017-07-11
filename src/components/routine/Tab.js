@@ -24,8 +24,11 @@ class Tab extends Component {
         paddingRight: 7,
         borderWidth: 1,
         borderRadius: 2,
-        backgroundColor: 'white',
-      }
+        backgroundColor: 'skyblue',
+      },
+      text: {
+        color: 'black',
+      },
     };
   }
 
@@ -37,7 +40,7 @@ class Tab extends Component {
     if (this.props.isSelected(this.props.text)) {
       this.styles.container.backgroundColor = 'blue';
     } else {
-      this.styles.container.backgroundColor = 'white';
+      this.styles.container.backgroundColor = 'skyblue';
     }
   }
 
@@ -45,7 +48,7 @@ class Tab extends Component {
     this.isSelected();
     return (
       <TouchableOpacity style={this.styles.container} onPress={this.onPressed.bind(this)}>
-        <Text>{this.props.text}</Text>
+        <Text style={this.styles.text}>{this.props.text}</Text>
       </TouchableOpacity>
     );
   }

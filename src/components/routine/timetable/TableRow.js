@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: 'darkcyan',
+    backgroundColor: 'cyan',
   },
   header: {
     flex: 1,
@@ -28,13 +28,13 @@ const TableHeader = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.text}>Start</Text>
+        <Text style={styles.text}>Start of aasd qwee zc</Text>
       </View>
       <View style={styles.header}>
-        <Text style={styles.text}>End</Text>
+        <Text style={styles.text}>End of qwe zcxcb werw</Text>
       </View>
       <View style={styles.headerDesc}>
-        <Text style={styles.text}>Description</Text>
+        <Text style={styles.text}>Description of mnbmbmnb kkhkjh oiuoiu qwewqead kajhdkahs dds</Text>
       </View>
       <View style={styles.header}>
         <Text style={styles.text}>Remark</Text>

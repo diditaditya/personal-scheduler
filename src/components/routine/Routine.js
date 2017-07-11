@@ -7,7 +7,7 @@ import TimeTable from './timetable/TimeTable';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#9ef0ee',
+    backgroundColor: 'aliceblue',
     flex: 1,
   },
   text: {

@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
+  },
+  modal: {
+    flex: 1,
   }
 });
 
@@ -44,6 +47,8 @@ class Routine extends React.Component {
           animationType={'slide'}
           transparent={false}
           visible={this.state.addVisible}
+          supportedOrientations={['portrait', 'landscape']}
+          style={styles.modal}
         >
           <Add
             closeAdd={this.setAddVisible.bind(this)}

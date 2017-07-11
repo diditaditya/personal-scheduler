@@ -28,6 +28,7 @@ class Tabs extends Component {
     this.setState({
       selected: day,
     });
+    this.props.selectNew(day);
   }
 
   isSelected(day) {

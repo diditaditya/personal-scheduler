@@ -24,20 +24,20 @@ const styles = StyleSheet.create({
   }
 });
 
-const TableHeader = () => {
+const TableHeader = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.text}>Start of aasd qwee zc</Text>
+        <Text style={styles.text}>{props.start}</Text>
       </View>
       <View style={styles.header}>
-        <Text style={styles.text}>End of qwe zcxcb werw</Text>
+        <Text style={styles.text}>{props.end}</Text>
       </View>
       <View style={styles.headerDesc}>
-        <Text style={styles.text}>Description of mnbmbmnb kkhkjh oiuoiu qwewqead kajhdkahs dds</Text>
+        <Text style={styles.text}>{props.description}</Text>
       </View>
       <View style={styles.header}>
-        <Text style={styles.text}>Remark</Text>
+        <Text style={styles.text}>{props.remark}</Text>
       </View>
     </View>
   );

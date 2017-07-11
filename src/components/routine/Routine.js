@@ -11,18 +11,30 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text: {
-    // flex: 1,
     textAlign: 'center',
   }
 });
 
 class Routine extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: 'Mon',
+    };
+  }
+
+  selectNew(day) {
+    this.setState({
+      selected: day,
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Header />
-        <Tabs />
-        <TimeTable />
+        <Header selected={this.state.selected} />
+        <Tabs selectNew={this.selectNew.bind(this)} />
+        <TimeTable selected={this.state.selected} />
       </View>
     );
   }

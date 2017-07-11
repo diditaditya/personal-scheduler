@@ -22,15 +22,13 @@ const styles = StyleSheet.create({
 class NavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      title: 'Personal Scheduler'
-    };
+    this.state = {};
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{this.state.title}</Text>
+        <Text style={styles.title}>{this.props.title}</Text>
       </View>
     );
   }

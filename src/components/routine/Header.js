@@ -25,6 +25,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
+  },
+  today: {
+    textAlign: 'center',
   }
 });
 
@@ -34,7 +37,12 @@ class RoutineHeader extends Component {
     this.state = {
       pageMark: 'Routine',
       date: '',
+      day: '',
     };
+  }
+
+  showAdd() {
+    this.props.showAdd(!this.props.isAddVisible);
   }
 
   componentDidMount() {
@@ -42,8 +50,12 @@ class RoutineHeader extends Component {
     let months = [
       'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    let days = [
+      'Sunday', 'Monday', 'Tuesday', 'Wednesday',
+      'Thursday', 'Friday', 'Saturday'];
     this.setState({
       date: `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()}`,
+      day: days[today.getDay()],
     });
   }
 
@@ -51,10 +63,15 @@ class RoutineHeader extends Component {
     return (
       <View style={styles.container}>
         <Text>{this.state.pageMark}</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.showAdd.bind(this)}>
           <Text style={styles.buttonText}>Add</Text>
         </TouchableOpacity>
-        <Text>{this.state.date}</Text>
+        <View>
+          <Text style={styles.today}>{this.state.day}</Text>
+          <Text style={styles.today}>{this.state.date}</Text>
+        </View>
       </View>
     );
   }

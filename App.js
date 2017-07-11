@@ -19,7 +19,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <NavBar style={styles.navBar} />
+        <NavBar style={styles.navBar} title={"Persona Scheduler"}/>
         <Routine style={styles.routine}/>
       </View>
     );

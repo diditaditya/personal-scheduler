@@ -7,18 +7,21 @@ import {
   TouchableOpacity } from 'react-native';
 
 import NavBar from '../../navbar/NavBar';
+import Form from './AddForm';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 24,
     alignItems: 'center',
+  },
+  textCenter: {
+    textAlign: 'center',
   },
   button: {
     borderWidth: 1,
     borderRadius: 2,
     height: 25,
-    width: 40,
+    padding: 5,
     backgroundColor: 'lightsteelblue',
     justifyContent: 'center',
   },
@@ -36,7 +39,7 @@ class AddRoutine extends Component {
     return (
       <View style={styles.container}>
         <NavBar title={"Add New Routine"}/>
-        <Text>Up and Running!</Text>
+        <Form />
         <TouchableOpacity
           style={styles.button}
           onPress={this.closeAdd.bind(this)}

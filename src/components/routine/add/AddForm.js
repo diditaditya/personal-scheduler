@@ -14,29 +14,27 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 25,
     marginBottom: 25,
-    flexDirection: 'column',
-  },
-  form: {
-    flexDirection: 'row',
-  },
-  shoulder: {
-    flex: 1,
-  },
-  main: {
-    flex: 14,
-  },
-  textCenter: {
-    textAlign: 'center',
   },
   modal: {
     flex: 0.5,
-  }
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderBottomColor: 'dodgerblue',
+    paddingTop: 5,
+    paddingBottom: 5,
+  },
+  rowText: {
+    padding: 5,
+  },
 });
 
 const days = [
   {label: 'Sunday', value: 'Sun'},
   {label: 'Monday', value: 'Mon'},
-  {label: 'Tueday', value: 'Tue'},
+  {label: 'Tuesday', value: 'Tue'},
   {label: 'Wednesday', value: 'Wed'},
   {label: 'Thursday', value: 'Thu'},
   {label: 'Friday', value: 'Fri'},
@@ -52,10 +50,14 @@ class Form extends Component {
         hour: '00',
         minute: '00',
       },
-      end: '',
+      end: {
+        hour: '00',
+        minute: '00',
+      },
       description: '',
       dayPickerVisible: false,
       startTimePickerVisible: false,
+      endTimePickerVisible: false,
     };
   }
 
@@ -83,6 +85,18 @@ class Form extends Component {
     });
   }
 
+  showEndTimePicker() {
+    this.setState({
+      endTimePickerVisible: true,
+    });
+  }
+
+  closeEndTimePicker() {
+    this.setState({
+      endTimePickerVisible: false,
+    });
+  }
+
   setDay(day) {
     this.setState({
       day: day,
@@ -98,24 +112,38 @@ class Form extends Component {
     });
   }
 
+  setEnd(hour, minute) {
+    this.setState({
+      end: {
+        hour: hour,
+        minute: minute,
+      },
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
 
-        <TouchableOpacity onPress={this.showDayPicker.bind(this)}>
-          <Text style={styles.textCenter}>Select Day</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={this.showStartTimePicker.bind(this)}>
-          <Text style={styles.textCenter}>Select Start Time</Text>
-        </TouchableOpacity>
+        <View style={styles.rowContainer}>
+          <Text style={styles.rowText}>On {days[this.state.day].label}</Text>
+          <TouchableOpacity onPress={this.showDayPicker.bind(this)}>
+            <Text style={styles.rowText}>Change Day</Text>
+          </TouchableOpacity>
+        </View>
 
-        <View style={styles.form}>
-          <View style={styles.shoulder}></View>
-          <View style={styles.main}>
-            <Text>{days[this.state.day].label}</Text>
-            <Text>{`${this.state.start.hour}:${this.state.start.minute}`}</Text>
-          </View>
-          <View style={styles.shoulder}></View>
+        <View style={styles.rowContainer}>
+          <Text style={styles.rowText}>Starts at {`${this.state.start.hour}:${this.state.start.minute}`}</Text>
+          <TouchableOpacity onPress={this.showStartTimePicker.bind(this)}>
+            <Text style={styles.rowText}>Change Time</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.rowContainer}>
+          <Text style={styles.rowText}>Ends at {`${this.state.end.hour}:${this.state.end.minute}`}</Text>
+          <TouchableOpacity onPress={this.showEndTimePicker.bind(this)}>
+            <Text style={styles.rowText}>Change Time</Text>
+          </TouchableOpacity>
         </View>
 
         <Modal
@@ -129,7 +157,7 @@ class Form extends Component {
             items={days}
             setValue={this.setDay.bind(this)}
             closePicker={this.closeDayPicker.bind(this)}
-            isAddVisible={this.state.addVisible}
+            // isAddVisible={this.state.addVisible}
           />
         </Modal>
 
@@ -141,10 +169,23 @@ class Form extends Component {
           style={styles.modal}
         >
           <TimePicker
-            // items={days}
             setValue={this.setStart.bind(this)}
             closePicker={this.closeStartTimePicker.bind(this)}
-            isAddVisible={this.state.addVisible}
+            // isAddVisible={this.state.addVisible}
+          />
+        </Modal>
+
+        <Modal
+          animationType={'slide'}
+          transparent={true}
+          visible={this.state.endTimePickerVisible}
+          supportedOrientations={['portrait', 'landscape']}
+          style={styles.modal}
+        >
+          <TimePicker
+            setValue={this.setEnd.bind(this)}
+            closePicker={this.closeEndTimePicker.bind(this)}
+            // isAddVisible={this.state.addVisible}
           />
         </Modal>
 

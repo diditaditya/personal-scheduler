@@ -10,11 +10,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  textCenter: {
-    textAlign: 'center',
-  },
   empty: {
     flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
   },
   main: {
     flex: 1,
@@ -22,14 +20,22 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     alignItems: 'center',
+    flexDirection: 'row',
   },
   button: {
-    borderWidth: 1,
-    borderRadius: 2,
-    height: 25,
-    width: 40,
-    backgroundColor: 'lightsteelblue',
+    flex: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: 'dodgerblue',
+    borderTopWidth: 1,
+    borderTopColor: 'dodgerblue',
+    padding: 5,
+    backgroundColor: 'lightskyblue',
     justifyContent: 'center',
+  },
+  buttonText: {
+    textAlign: 'right',
+    fontSize: 18,
+    padding: 5,
   },
 });
 
@@ -58,6 +64,11 @@ class PickerModal extends Component {
       <View style={styles.container}>
         <View style={styles.empty}></View>
         <View style={styles.main}>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button} onPress={this.closePicker.bind(this)}>
+              <Text style={styles.buttonText}>Choose</Text>
+            </TouchableOpacity>
+          </View>
           <Picker
             selectedValue={this.state.value}
             onValueChange={(itemValue, itemIndex) => {this.onValueChange(itemIndex)}}
@@ -66,11 +77,7 @@ class PickerModal extends Component {
               return <Picker.Item key={index} label={item.label} value={index} />
             })}
           </Picker>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={this.closePicker.bind(this)}>
-              <Text style={styles.textCenter}>Done</Text>
-            </TouchableOpacity>
-          </View>
+
         </View>
       </View>
     )

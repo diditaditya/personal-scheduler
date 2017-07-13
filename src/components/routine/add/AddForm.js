@@ -3,6 +3,9 @@ import {
   View,
   Text,
   TextInput,
+  Keyboard,
+  Dimensions,
+  TouchableWithoutFeedback,
   Modal,
   StyleSheet,
   TouchableOpacity } from 'react-native';
@@ -20,15 +23,26 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderBottomColor: 'dodgerblue',
     paddingTop: 5,
     paddingBottom: 5,
+    // backgroundColor: 'yellow',
   },
   rowText: {
     padding: 5,
   },
+  textInput: {
+    marginTop: 8,
+    fontSize: 14,
+    fontWeight: 'bold',
+    padding: 5,
+    height: 50,
+    width: Dimensions.get('window').width,
+    // backgroundColor: 'green',
+  }
 });
 
 const days = [
@@ -54,7 +68,7 @@ class Form extends Component {
         hour: '00',
         minute: '00',
       },
-      description: '',
+      description: 'Some activity',
       dayPickerVisible: false,
       startTimePickerVisible: false,
       endTimePickerVisible: false,
@@ -125,25 +139,41 @@ class Form extends Component {
     return (
       <View style={styles.container}>
 
-        <View style={styles.rowContainer}>
-          <Text style={styles.rowText}>On {days[this.state.day].label}</Text>
-          <TouchableOpacity onPress={this.showDayPicker.bind(this)}>
-            <Text style={styles.rowText}>Change Day</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View>
+            <View style={styles.rowContainer}>
+              <Text style={styles.rowText}>On <Text style={{fontWeight: 'bold'}}>{days[this.state.day].label}</Text></Text>
+              <TouchableOpacity onPress={this.showDayPicker.bind(this)}>
+                <Text style={styles.rowText}>Change Day</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.rowContainer}>
+              <Text style={styles.rowText}>Starts at <Text style={{fontWeight: 'bold'}}>{`${this.state.start.hour}:${this.state.start.minute}`}</Text></Text>
+              <TouchableOpacity onPress={this.showStartTimePicker.bind(this)}>
+                <Text style={styles.rowText}>Change Time</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.rowContainer}>
+              <Text style={styles.rowText}>Ends at <Text style={{fontWeight: 'bold'}}>{`${this.state.end.hour}:${this.state.end.minute}`}</Text></Text>
+              <TouchableOpacity onPress={this.showEndTimePicker.bind(this)}>
+                <Text style={styles.rowText}>Change Time</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
 
         <View style={styles.rowContainer}>
-          <Text style={styles.rowText}>Starts at {`${this.state.start.hour}:${this.state.start.minute}`}</Text>
-          <TouchableOpacity onPress={this.showStartTimePicker.bind(this)}>
-            <Text style={styles.rowText}>Change Time</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.rowContainer}>
-          <Text style={styles.rowText}>Ends at {`${this.state.end.hour}:${this.state.end.minute}`}</Text>
-          <TouchableOpacity onPress={this.showEndTimePicker.bind(this)}>
-            <Text style={styles.rowText}>Change Time</Text>
-          </TouchableOpacity>
+          <Text style={styles.rowText}>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={(text) => this.setState({description: text})}
+              value={this.state.description}
+              editable={true}
+              multiline={true}
+              // onSubmitEditing={() => Keyboard.dismiss}
+            />
+          </Text>
         </View>
 
         <Modal
@@ -157,7 +187,6 @@ class Form extends Component {
             items={days}
             setValue={this.setDay.bind(this)}
             closePicker={this.closeDayPicker.bind(this)}
-            // isAddVisible={this.state.addVisible}
           />
         </Modal>
 
@@ -171,7 +200,6 @@ class Form extends Component {
           <TimePicker
             setValue={this.setStart.bind(this)}
             closePicker={this.closeStartTimePicker.bind(this)}
-            // isAddVisible={this.state.addVisible}
           />
         </Modal>
 
@@ -185,7 +213,6 @@ class Form extends Component {
           <TimePicker
             setValue={this.setEnd.bind(this)}
             closePicker={this.closeEndTimePicker.bind(this)}
-            // isAddVisible={this.state.addVisible}
           />
         </Modal>
 

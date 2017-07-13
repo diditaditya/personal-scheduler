@@ -48,7 +48,6 @@ class PickerModal extends Component {
   }
 
   closePicker() {
-
     this.props.closePicker();
   }
 

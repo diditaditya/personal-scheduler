@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
+    backgroundColor: 'aliceblue',
   },
   pickerContainer: {
     flex: 1,

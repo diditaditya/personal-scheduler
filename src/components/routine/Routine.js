@@ -1,10 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Modal } from 'react-native';
 
 import Header from './Header';
 import Tabs from './tabs/Tabs';
 import TimeTable from './timetable/TimeTable';
 import Add from './add/AddRoutine';
+import StoredRoutines from '../../data/routines';
+
+import { initRoutinesFromStorage } from '../../store/routineAction';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,12 +23,15 @@ const styles = StyleSheet.create({
   }
 });
 
+const Data = new StoredRoutines();
+
 class Routine extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       selected: 'Mon',
       addVisible: false,
+      schedule: {},
     };
   }
 
@@ -40,11 +47,24 @@ class Routine extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.props.initRoutinesFromStorage();
+
+    // Data.initData();
+    //
+    // this.setState({
+    //   schedule: Data.getRoutines(),
+    // });
+    // console.log(this.state.schedule);
+  }
+
   render() {
+    console.log(this.props);
     return (
       <View style={styles.container}>
         <Modal
           animationType={'slide'}
+          onRequestClose={()=>{}}
           transparent={false}
           visible={this.state.addVisible}
           supportedOrientations={['portrait', 'landscape']}
@@ -67,4 +87,17 @@ class Routine extends React.Component {
   }
 }
 
-export default Routine;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    schedule: state.schedule,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    initRoutinesFromStorage: () => dispatch(initRoutinesFromStorage())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Routine);

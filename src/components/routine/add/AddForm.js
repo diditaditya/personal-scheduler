@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   Text,
+  Image,
   TextInput,
   Keyboard,
   Dimensions,
@@ -12,6 +14,12 @@ import {
 
 import DayPicker from './DayPicker';
 import TimePicker from './TimePicker';
+
+import {
+  setNewRoutineDay,
+  setNewRoutineStart,
+  setNewRoutineEnd,
+  setNewRoutineDescription } from '../../../store/routineAction';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +50,11 @@ const styles = StyleSheet.create({
     height: 50,
     width: Dimensions.get('window').width,
     // backgroundColor: 'green',
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    margin: 5,
   }
 });
 
@@ -115,6 +128,7 @@ class Form extends Component {
     this.setState({
       day: day,
     });
+    this.props.setNewRoutineDay(day);
   }
 
   setStart(hour, minute) {
@@ -124,6 +138,7 @@ class Form extends Component {
         minute: minute,
       },
     });
+    this.props.setNewRoutineStart(this.state.start);
   }
 
   setEnd(hour, minute) {
@@ -133,6 +148,15 @@ class Form extends Component {
         minute: minute,
       },
     });
+    this.props.setNewRoutineEnd(this.state.end);
+  }
+
+  setDescription(text) {
+    // console.log(event);
+    this.setState({
+      description: text
+    });
+    this.props.setNewRoutineDescription(text);
   }
 
   render() {
@@ -142,20 +166,33 @@ class Form extends Component {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View>
             <View style={styles.rowContainer}>
-              <Text style={styles.rowText}>On <Text style={{fontWeight: 'bold'}}>{days[this.state.day].label}</Text></Text>
+              <Text style={styles.rowText}>
+                On <Text style={{fontWeight: 'bold'}}>
+                  {days[this.state.day].label}
+                </Text>
+              </Text>
               <TouchableOpacity onPress={this.showDayPicker.bind(this)}>
                 <Text style={styles.rowText}>Change Day</Text>
               </TouchableOpacity>
             </View>
+
             <View style={styles.rowContainer}>
-              <Text style={styles.rowText}>Starts at <Text style={{fontWeight: 'bold'}}>{`${this.state.start.hour}:${this.state.start.minute}`}</Text></Text>
+              <Text style={styles.rowText}>
+                Starts at <Text style={{fontWeight: 'bold'}}>
+                  {`${this.state.start.hour}:${this.state.start.minute}`}
+                </Text>
+              </Text>
               <TouchableOpacity onPress={this.showStartTimePicker.bind(this)}>
                 <Text style={styles.rowText}>Change Time</Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.rowContainer}>
-              <Text style={styles.rowText}>Ends at <Text style={{fontWeight: 'bold'}}>{`${this.state.end.hour}:${this.state.end.minute}`}</Text></Text>
+              <Text style={styles.rowText}>
+                Ends at <Text style={{fontWeight: 'bold'}}>
+                  {`${this.state.end.hour}:${this.state.end.minute}`}
+                </Text>
+              </Text>
               <TouchableOpacity onPress={this.showEndTimePicker.bind(this)}>
                 <Text style={styles.rowText}>Change Time</Text>
               </TouchableOpacity>
@@ -164,20 +201,22 @@ class Form extends Component {
         </TouchableWithoutFeedback>
 
         <View style={styles.rowContainer}>
-          <Text style={styles.rowText}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={(text) => this.setState({description: text})}
-              value={this.state.description}
-              editable={true}
-              multiline={true}
-              // onSubmitEditing={() => Keyboard.dismiss}
-            />
-          </Text>
+          {/* <Text style={styles.rowText}>
+
+          </Text> */}
+          <TextInput
+            style={styles.textInput}
+            onChangeText={(text) => this.setDescription(text)}
+            value={this.state.description}
+            editable={true}
+            multiline={true}
+            // onSubmitEditing={() => Keyboard.dismiss}
+          />
         </View>
 
         <Modal
           animationType={'slide'}
+          onRequestClose={()=>{}}
           transparent={true}
           visible={this.state.dayPickerVisible}
           supportedOrientations={['portrait', 'landscape']}
@@ -192,6 +231,7 @@ class Form extends Component {
 
         <Modal
           animationType={'slide'}
+          onRequestClose={()=>{}}
           transparent={true}
           visible={this.state.startTimePickerVisible}
           supportedOrientations={['portrait', 'landscape']}
@@ -205,6 +245,7 @@ class Form extends Component {
 
         <Modal
           animationType={'slide'}
+          onRequestClose={()=>{}}
           transparent={true}
           visible={this.state.endTimePickerVisible}
           supportedOrientations={['portrait', 'landscape']}
@@ -216,11 +257,18 @@ class Form extends Component {
           />
         </Modal>
 
-
-
       </View>
     )
   }
 }
 
-export default Form;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setNewRoutineDay: (data) => dispatch(setNewRoutineDay(data)),
+    setNewRoutineStart: (data) => dispatch(setNewRoutineStart(data)),
+    setNewRoutineEnd: (data) => dispatch(setNewRoutineEnd(data)),
+    setNewRoutineDescription: (data) => dispatch(setNewRoutineDescription(data)),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Form);

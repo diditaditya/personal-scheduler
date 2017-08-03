@@ -49,17 +49,9 @@ class Routine extends React.Component {
 
   componentDidMount() {
     this.props.initRoutinesFromStorage();
-
-    // Data.initData();
-    //
-    // this.setState({
-    //   schedule: Data.getRoutines(),
-    // });
-    // console.log(this.state.schedule);
   }
 
   render() {
-    console.log(this.props);
     return (
       <View style={styles.container}>
         <Modal
@@ -88,7 +80,6 @@ class Routine extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     schedule: state.schedule,
   }

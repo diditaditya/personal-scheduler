@@ -50,27 +50,18 @@ class AddRoutine extends Component {
   }
 
   addRoutine() {
-    // scheduleControl.addRoutine(data);
-    // let data = {
-    //   day: 'Mon',
-    //   routine: {
-    //     start: '07:00',
-    //     end: '08:00',
-    //     description: 'Some monday morning activity',
-    //     remark: 'none',
-    //   }
-    // };
     this.props.addNewRoutine(this.props.newRoutine);
+    this.props.closeAdd(!this.props.isAddVisible);
   }
 
   closeAdd() {
-    this.props.closeAdd(!this.props.isAddVisible)
+    this.props.closeAdd(!this.props.isAddVisible);
   }
 
   componentDidMount() {
-    this.setState({
-      schedule: scheduleControl.getRoutines(),
-    });
+    // this.setState({
+    //   schedule: scheduleControl.getRoutines(),
+    // });
   }
 
   render() {

@@ -61,14 +61,15 @@ export const initRoutinesFromStorage = () => {
           AsyncStorage.setItem('schedule', JSON.stringify(newSchedule))
             .then((response) => {
               console.log('new schedule has been initialized');
-              console.log(response);
+              dispatch(initRoutines(newSchedule));
             })
             .catch((err) => {
               console.log('error initializing new schedule ', err);
             });
         } else {
           console.log('data is found');
-          console.log(schedule);
+          let storedSchedule = JSON.parse(schedule);
+          dispatch(initRoutines(storedSchedule));
         }
       })
       .catch((err) => {
@@ -80,5 +81,6 @@ export const initRoutinesFromStorage = () => {
 export const addNewRoutine = (data) => {
   return dispatch => {
     console.log('in routineAction addNewRoutine function');
+    console.log(data);
   }
 }

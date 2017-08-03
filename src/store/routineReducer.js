@@ -16,11 +16,17 @@ const initialState = {
     Sun: [],
   },
   newRoutine: {
-    day: '',
+    day: 0,
     routine: {
-      start: '',
-      end: '',
-      description: '',
+      start: {
+        hour: '00',
+        minute: '00',
+      },
+      end: {
+        hour: '00',
+        minute: '00',
+      },
+      description: 'Some activity',
       remark: '',
     }
   }
@@ -28,6 +34,11 @@ const initialState = {
 
 const routineReducer = (state = initialState, action) => {
   switch (action.type) {
+    case INITIALIZE_ROUTINES_SUCCESS:
+      return {
+        ...state,
+        schedule: action.payload
+      }
     case SET_NEW_ROUTINE_DAY:
       return {
         ...state,

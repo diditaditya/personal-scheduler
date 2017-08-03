@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   Text,
@@ -47,14 +48,15 @@ class TimeTable extends Component {
   }
 
   render() {
-    if (this.state.schedule) {
+    let schedule = this.props.schedule;
+    if (schedule) {
       return (
         <View style={styles.container}>
           <View style={styles.shoulder}></View>
           <View style={styles.main}>
             <Header style={styles.header} />
             <View>
-              {this.state.schedule[this.props.selected].map((activity, idx) => {
+              {this.props.schedule[this.props.selected].map((activity, idx) => {
                 return (
                   <Row
                     style={styles.row}
@@ -87,4 +89,10 @@ class TimeTable extends Component {
   }
 }
 
-export default TimeTable;
+const mapStateToProps = (state) => {
+  return {
+    schedule: state.schedule
+  }
+}
+
+export default connect(mapStateToProps, null)(TimeTable);

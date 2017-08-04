@@ -10,7 +10,6 @@ import {
 
 import Header from './TableHeader';
 import Row from './TableRow';
-import { Schedule } from '../../../data/routines';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,65 +34,43 @@ const styles = StyleSheet.create({
   }
 });
 
-class TimeTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {
-    this.setState({
-      schedule: Schedule,
-    });
-  }
-
-  render() {
-    let schedule = this.props.schedule;
-    if (schedule) {
-      return (
-        <View style={styles.container}>
-          <View style={styles.shoulder}></View>
-          <View style={styles.main}>
-            <Header style={styles.header} />
-            <View>
-              {this.props.schedule[this.props.selected].map((activity, idx) => {
-                return (
-                  <Row
-                    style={styles.row}
-                    key={idx}
-                    start={`${activity.start.hour}:${activity.start.minute}`}
-                    end={`${activity.end.hour}:${activity.end.minute}`}
-                    description={activity.description}
-                    remark={activity.remark}
-                  />
-                )
-              })}
-            </View>
+const TimeTable = (props) => {
+  if (props.schedule) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.shoulder}></View>
+        <View style={styles.main}>
+          <Header style={styles.header} />
+          <View>
+            {props.schedule.map((activity, idx) => {
+              return (
+                <Row
+                  style={styles.row}
+                  key={idx}
+                  start={`${activity.start.hour}:${activity.start.minute}`}
+                  end={`${activity.end.hour}:${activity.end.minute}`}
+                  description={activity.description}
+                  remark={activity.remark}
+                />
+              )
+            })}
           </View>
-          <View style={styles.shoulder}></View>
         </View>
-      )
-    } else {
-      return (
-        <View style={styles.container}>
-          <View style={styles.shoulder}></View>
-          <View style={styles.main}>
-            <ActivityIndicator size={'large'} />
-            <Text>Loading data..</Text>
-          </View>
-          <View style={styles.shoulder}></View>
+        <View style={styles.shoulder}></View>
+      </View>
+    )
+  } else {
+    return (
+      <View style={styles.container}>
+        <View style={styles.shoulder}></View>
+        <View style={styles.main}>
+          <ActivityIndicator size={'large'} />
+          <Text>Loading data..</Text>
         </View>
-      )
-    }
-
+        <View style={styles.shoulder}></View>
+      </View>
+    )
   }
 }
 
-const mapStateToProps = (state) => {
-  // console.log(states);
-  return {
-    schedule: state.schedule
-  }
-}
-
-export default connect(mapStateToProps, null)(TimeTable);
+export default TimeTable;

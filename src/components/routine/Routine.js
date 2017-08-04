@@ -43,7 +43,7 @@ class Routine extends React.Component {
 
   setAddVisible(isAddVisible) {
     this.setState({
-      addVisible: isAddVisible
+      addVisible: isAddVisible,
     });
   }
 
@@ -73,14 +73,16 @@ class Routine extends React.Component {
           isAddVisible={this.state.addVisible}
         />
         <Tabs selectNew={this.selectNew.bind(this)} />
-        <TimeTable selected={this.state.selected} />
+        <TimeTable
+          selected={this.state.selected}
+          schedule={this.props.schedule[this.state.selected]}
+        />
       </View>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state);
   return {
     schedule: state.schedule,
   }

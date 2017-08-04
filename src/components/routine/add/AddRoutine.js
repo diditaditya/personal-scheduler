@@ -11,7 +11,7 @@ import {
 
 import NavBar from '../../navbar/NavBar';
 import Form from './AddForm';
-import StoredRoutines from '../../../data/routines';
+// import StoredRoutines from '../../../data/routines';
 
 import { addNewRoutine } from '../../../store/routineAction';
 import { DAYS_ARRAY } from '../../../store/constants';
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const scheduleControl = new StoredRoutines();
+// const scheduleControl = new StoredRoutines();
 
 class AddRoutine extends Component {
   constructor(props) {
@@ -81,12 +81,6 @@ class AddRoutine extends Component {
 
   closeAdd() {
     this.props.closeAdd(!this.props.isAddVisible);
-  }
-
-  componentDidMount() {
-    // this.setState({
-    //   schedule: scheduleControl.getRoutines(),
-    // });
   }
 
   render() {

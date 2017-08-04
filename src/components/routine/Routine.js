@@ -80,6 +80,7 @@ class Routine extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  // console.log(state);
   return {
     schedule: state.schedule,
   }

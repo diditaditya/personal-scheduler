@@ -3,7 +3,24 @@ import {
   SET_NEW_ROUTINE_DAY,
   SET_NEW_ROUTINE_START,
   SET_NEW_ROUTINE_END,
-  SET_NEW_ROUTINE_DESCRIPTION } from './constants';
+  SET_NEW_ROUTINE_DESCRIPTION,
+  ADD_NEW_ROUTINE_SUCCESS } from './constants';
+
+const initialNewRoutine = {
+  day: 0,
+  routine: {
+    start: {
+      hour: '00',
+      minute: '00',
+    },
+    end: {
+      hour: '00',
+      minute: '00',
+    },
+    description: 'Some activity',
+    remark: '',
+  }
+}
 
 const initialState = {
   schedule: {
@@ -15,21 +32,7 @@ const initialState = {
     Sat: [],
     Sun: [],
   },
-  newRoutine: {
-    day: 0,
-    routine: {
-      start: {
-        hour: '00',
-        minute: '00',
-      },
-      end: {
-        hour: '00',
-        minute: '00',
-      },
-      description: 'Some activity',
-      remark: '',
-    }
-  }
+  newRoutine: initialNewRoutine
 }
 
 const routineReducer = (state = initialState, action) => {
@@ -77,6 +80,13 @@ const routineReducer = (state = initialState, action) => {
           }
         }
       }
+    case ADD_NEW_ROUTINE_SUCCESS: {
+      return {
+        ...state,
+        schedule: action.payload,
+        newRoutine: initialNewRoutine
+      }
+    }
     default:
       return state;
   }

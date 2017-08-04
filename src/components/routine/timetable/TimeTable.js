@@ -61,8 +61,8 @@ class TimeTable extends Component {
                   <Row
                     style={styles.row}
                     key={idx}
-                    start={activity.start}
-                    end={activity.end}
+                    start={`${activity.start.hour}:${activity.start.minute}`}
+                    end={`${activity.end.hour}:${activity.end.minute}`}
                     description={activity.description}
                     remark={activity.remark}
                   />
@@ -90,6 +90,7 @@ class TimeTable extends Component {
 }
 
 const mapStateToProps = (state) => {
+  // console.log(states);
   return {
     schedule: state.schedule
   }

@@ -3,3 +3,5 @@ export const SET_NEW_ROUTINE_DAY = 'SET_NEW_ROUTINE_DAY';
 export const SET_NEW_ROUTINE_START = 'SET_NEW_ROUTINE_START';
 export const SET_NEW_ROUTINE_END = 'SET_NEW_ROUTINE_END';
 export const SET_NEW_ROUTINE_DESCRIPTION = 'SET_NEW_ROUTINE_DESCRIPTION';
+export const ADD_NEW_ROUTINE_SUCCESS = 'ADD_NEW_ROUTINE_SUCCESS';
+export const DAYS_ARRAY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

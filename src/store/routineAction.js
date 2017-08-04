@@ -3,7 +3,8 @@ import {
   SET_NEW_ROUTINE_DAY,
   SET_NEW_ROUTINE_START,
   SET_NEW_ROUTINE_END,
-  SET_NEW_ROUTINE_DESCRIPTION } from './constants';
+  SET_NEW_ROUTINE_DESCRIPTION,
+  ADD_NEW_ROUTINE_SUCCESS } from './constants';
 
 import { AsyncStorage } from 'react-native';
 
@@ -42,6 +43,13 @@ export const setNewRoutineDescription = (data) => {
   }
 }
 
+export const addNewRoutineSuccess = (data) => {
+  return {
+    type: ADD_NEW_ROUTINE_SUCCESS,
+    payload: data
+  }
+}
+
 export const initRoutinesFromStorage = () => {
   return dispatch => {
     AsyncStorage.getItem('schedule')
@@ -59,7 +67,7 @@ export const initRoutinesFromStorage = () => {
             Sun: [],
           };
           AsyncStorage.setItem('schedule', JSON.stringify(newSchedule))
-            .then((response) => {
+            .then(() => {
               console.log('new schedule has been initialized');
               dispatch(initRoutines(newSchedule));
             })
@@ -73,7 +81,8 @@ export const initRoutinesFromStorage = () => {
         }
       })
       .catch((err) => {
-        console.log('error retrieving data ', err);
+        console.log('error retrieving data');
+        console.log(err);
       });
   }
 }
@@ -82,5 +91,14 @@ export const addNewRoutine = (data) => {
   return dispatch => {
     console.log('in routineAction addNewRoutine function');
     console.log(data);
+    AsyncStorage.setItem('schedule', JSON.stringify(data))
+      .then(() => {
+        console.log('new routine has been successfully added to the schedule');
+        dispatch(addNewRoutineSuccess(data));
+      })
+      .catch((err) => {
+        console.log('error saving new routine to storage');
+        console.log(err);
+      });
   }
 }

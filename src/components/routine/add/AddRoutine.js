@@ -13,7 +13,7 @@ import NavBar from '../../navbar/NavBar';
 import Form from './AddForm';
 // import StoredRoutines from '../../../data/routines';
 
-import { addNewRoutine } from '../../../store/routineAction';
+import { updateRoutine } from '../../../store/routineAction';
 import { DAYS_ARRAY } from '../../../store/constants';
 
 const styles = StyleSheet.create({
@@ -71,8 +71,21 @@ class AddRoutine extends Component {
         });
       } else {
         let schedule = this.props.schedule;
-        schedule[DAYS_ARRAY[this.props.newRoutine.day]].push(this.props.newRoutine.routine);
-        this.props.addNewRoutine(schedule);
+        let dayRoutines = schedule[DAYS_ARRAY[this.props.newRoutine.day]];
+
+        dayRoutines.push(this.props.newRoutine.routine);
+
+        dayRoutines.sort((a, b) => {
+          let aHour = Number(a.start.hour);
+          let aMinute = Number(a.start.minute) / 60;
+          let bHour = Number(b.start.hour);
+          let bMinute = Number(b.start.minute) / 60;
+          return (aHour + aMinute) - (bHour + bMinute);
+        });
+
+        schedule[DAYS_ARRAY[this.props.newRoutine.day]] = dayRoutines;
+
+        this.props.updateRoutine(schedule);
 
         this.props.closeAdd(!this.props.isAddVisible);
       }
@@ -120,7 +133,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addNewRoutine: (data) => dispatch(addNewRoutine(data))
+    updateRoutine: (data) => dispatch(updateRoutine(data))
   }
 }
 

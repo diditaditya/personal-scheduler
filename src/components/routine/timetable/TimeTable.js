@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
 });
 
 const TimeTable = (props) => {
+  // console.log(props.schedule);
   if (props.schedule) {
     return (
       <View style={styles.container}>
@@ -47,10 +48,13 @@ const TimeTable = (props) => {
                 <Row
                   style={styles.row}
                   key={idx}
+                  index={idx}
+                  day={props.selected}
                   start={`${activity.start.hour}:${activity.start.minute}`}
                   end={`${activity.end.hour}:${activity.end.minute}`}
                   description={activity.description}
                   remark={activity.remark}
+                  deleteRoutine={props.deleteRoutine}
                 />
               )
             })}

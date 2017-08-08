@@ -4,7 +4,7 @@ import {
   SET_NEW_ROUTINE_START,
   SET_NEW_ROUTINE_END,
   SET_NEW_ROUTINE_DESCRIPTION,
-  ADD_NEW_ROUTINE_SUCCESS } from './constants';
+  UPDATE_ROUTINE_SUCCESS } from './constants';
 
 import { AsyncStorage } from 'react-native';
 
@@ -43,9 +43,9 @@ export const setNewRoutineDescription = (data) => {
   }
 }
 
-export const addNewRoutineSuccess = (data) => {
+export const updateRoutineSuccess = (data) => {
   return {
-    type: ADD_NEW_ROUTINE_SUCCESS,
+    type: UPDATE_ROUTINE_SUCCESS,
     payload: data
   }
 }
@@ -87,14 +87,14 @@ export const initRoutinesFromStorage = () => {
   }
 }
 
-export const addNewRoutine = (data) => {
+export const updateRoutine = (data) => {
   return dispatch => {
-    console.log('in routineAction addNewRoutine function');
-    console.log(data);
+    // console.log('in routineAction addNewRoutine function');
+    // console.log(data);
     AsyncStorage.setItem('schedule', JSON.stringify(data))
       .then(() => {
-        console.log('new routine has been successfully added to the schedule');
-        dispatch(addNewRoutineSuccess(data));
+        console.log('schedule has been successfully updated');
+        dispatch(updateRoutineSuccess(data));
       })
       .catch((err) => {
         console.log('error saving new routine to storage');

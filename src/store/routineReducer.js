@@ -4,7 +4,7 @@ import {
   SET_NEW_ROUTINE_START,
   SET_NEW_ROUTINE_END,
   SET_NEW_ROUTINE_DESCRIPTION,
-  ADD_NEW_ROUTINE_SUCCESS } from './constants';
+  UPDATE_ROUTINE_SUCCESS } from './constants';
 
 const initialNewRoutine = {
   day: 0,
@@ -80,7 +80,7 @@ const routineReducer = (state = initialState, action) => {
           }
         }
       }
-    case ADD_NEW_ROUTINE_SUCCESS: {
+    case UPDATE_ROUTINE_SUCCESS: {
       return {
         ...state,
         schedule: action.payload,

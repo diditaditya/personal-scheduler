@@ -55,6 +55,8 @@ const TimeTable = (props) => {
                   description={activity.description}
                   remark={activity.remark}
                   deleteRoutine={props.deleteRoutine}
+                  openEdit={props.openEdit}
+                  editRoutine={props.editRoutine}
                 />
               )
             })}

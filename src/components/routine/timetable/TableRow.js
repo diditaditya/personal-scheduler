@@ -69,7 +69,7 @@ const TableRow = (props) => {
             source={require('../../../assets/icons/ic_delete_black_24dp_1x.png')}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => props.openEdit(rowData)}>
           <Image
             style={styles.button}
             source={require('../../../assets/icons/ic_mode_edit_black_24dp_1x.png')}

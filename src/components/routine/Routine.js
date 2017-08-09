@@ -6,7 +6,7 @@ import Header from './Header';
 import Tabs from './tabs/Tabs';
 import TimeTable from './timetable/TimeTable';
 import Add from './add/AddRoutine';
-import StoredRoutines from '../../data/routines';
+import Edit from './edit/EditRoutine';
 
 import { initRoutinesFromStorage, updateRoutine } from '../../store/routineAction';
 
@@ -23,8 +23,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const Data = new StoredRoutines();
-
 class Routine extends React.Component {
   constructor(props) {
     super(props);
@@ -32,8 +30,10 @@ class Routine extends React.Component {
       selected: 'Mon',
       addVisible: false,
       deleteVisible: false,
+      editVisible: false,
       whatever: true,
       schedule: {},
+      toBeEdited: {}
     };
   }
 
@@ -46,6 +46,12 @@ class Routine extends React.Component {
   setAddVisible(isAddVisible) {
     this.setState({
       addVisible: isAddVisible,
+    });
+  }
+
+  setEditVisible(isEditVisible) {
+    this.setState({
+      editVisible: isEditVisible,
     });
   }
 
@@ -90,6 +96,36 @@ class Routine extends React.Component {
     )
   }
 
+  openEdit(rowData) {
+    this.setState({
+      editVisible: !this.state.editVisible,
+      toBeEdited: rowData
+    });
+  }
+
+  editRoutine(updatedRoutine) {
+    console.log('edit edit edit');
+    let dayRoutines = schedule[day];
+
+    dayRoutines.splice(index, 1, updatedRoutine);
+
+    dayRoutines.sort((a, b) => {
+      let aHour = Number(a.start.hour);
+      let aMinute = Number(a.start.minute) / 60;
+      let bHour = Number(b.start.hour);
+      let bMinute = Number(b.start.minute) / 60;
+      return (aHour + aMinute) - (bHour + bMinute);
+    });
+
+    schedule[day] = dayRoutines;
+
+    this.props.updateRoutine(schedule);
+
+    this.setState({
+      whatever: !this.state.whatever
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -107,6 +143,22 @@ class Routine extends React.Component {
           />
         </Modal>
 
+        <Modal
+          animationType={'slide'}
+          onRequestClose={()=>{}}
+          transparent={false}
+          visible={this.state.editVisible}
+          supportedOrientations={['portrait', 'landscape']}
+          style={styles.modal}
+        >
+          <Edit
+            closeEdit={this.setEditVisible.bind(this)}
+            isEditVisible={this.state.editVisible}
+            rowData={this.state.toBeEdited}
+            // editRoutine={this.editRoutine}
+          />
+        </Modal>
+
         <Header
           selected={this.state.selected}
           showAdd={this.setAddVisible.bind(this)}
@@ -117,6 +169,8 @@ class Routine extends React.Component {
           selected={this.state.selected}
           schedule={this.props.schedule[this.state.selected]}
           deleteRoutine={this.deleteAlert.bind(this)}
+          openEdit={this.openEdit.bind(this)}
+          // editRoutine={this.editRoutine.bind(this)}
         />
       </View>
     );

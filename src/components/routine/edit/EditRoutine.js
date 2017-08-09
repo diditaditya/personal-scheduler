@@ -10,8 +10,7 @@ import {
   TouchableOpacity } from 'react-native';
 
 import NavBar from '../../navbar/NavBar';
-import Form from './AddForm';
-// import StoredRoutines from '../../../data/routines';
+import Form from './EditForm';
 
 import { updateRoutine } from '../../../store/routineAction';
 import { DAYS_ARRAY } from '../../../store/constants';
@@ -42,9 +41,23 @@ const styles = StyleSheet.create({
   },
 });
 
-// const scheduleControl = new StoredRoutines();
+const initialNewRoutine = {
+  day: 0,
+  routine: {
+    start: {
+      hour: '00',
+      minute: '00',
+    },
+    end: {
+      hour: '00',
+      minute: '00',
+    },
+    description: 'Some activity',
+    remark: '',
+  }
+}
 
-class AddRoutine extends Component {
+class EditRoutine extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,7 +65,7 @@ class AddRoutine extends Component {
     };
   }
 
-  addRoutine() {
+  editRoutine() {
     let startHour = Number(this.props.newRoutine.routine.start.hour);
     let startMinute = Number(this.props.newRoutine.routine.start.minute) / 60;
     let endHour = Number(this.props.newRoutine.routine.end.hour);
@@ -70,10 +83,15 @@ class AddRoutine extends Component {
           message: 'Description must not be empty'
         });
       } else {
+
+        this.setState({
+          message: ''
+        });
+
         let schedule = this.props.schedule;
         let dayRoutines = schedule[DAYS_ARRAY[this.props.newRoutine.day]];
 
-        dayRoutines.push(this.props.newRoutine.routine);
+        dayRoutines.splice(this.props.rowData.index, 1, this.props.newRoutine.routine);
 
         dayRoutines.sort((a, b) => {
           let aHour = Number(a.start.hour);
@@ -87,32 +105,36 @@ class AddRoutine extends Component {
 
         this.props.updateRoutine(schedule);
 
-        this.props.closeAdd(!this.props.isAddVisible);
+        this.props.closeEdit(!this.props.isEditVisible);
       }
     }
   }
 
-  closeAdd() {
-    this.props.closeAdd(!this.props.isAddVisible);
+  closeEdit() {
+    this.setState({
+      message: ''
+    });
+    this.props.closeEdit(!this.props.isEditVisible);
   }
 
   render() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
-          <NavBar title={"Add New Routine"}/>
-          <Form />
+          <NavBar title={"Edit Routine"}/>
+          <Form rowData={this.props.rowData}/>
+
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => this.addRoutine()}
+              onPress={() => this.editRoutine()}
             >
-              <Text style={styles.buttonText}>Add</Text>
+              <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.button}
-              onPress={this.closeAdd.bind(this)}
+              onPress={this.closeEdit.bind(this)}
             >
               <Text style={styles.buttonText}>Cancel</Text>
             </TouchableOpacity>
@@ -138,4 +160,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddRoutine);
+export default connect(mapStateToProps, mapDispatchToProps)(EditRoutine);
